@@ -110,6 +110,94 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""1dc71342-8c52-4281-9f91-5b559d2b3437"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleCars"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c51386d-f675-4856-9669-dfd47ac864f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleText"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e3aafc6-b2d8-4964-921a-17c79fa71e1f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""IncreaseVelocity"",
+                    ""type"": ""Button"",
+                    ""id"": ""db2402e3-b35e-438d-b6b9-1aa716420eab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DecreaseVelocity"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ce78f2d-e07b-42fa-84bf-728ef2d3e013"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""81def1e4-c0f8-46db-8cf0-c2cff08788ed"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleCars"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3dfef8dd-6c8c-4b15-9b62-2dbba323cd52"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleText"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06b681dc-6411-4a83-b16f-c3a16f1c200a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseVelocity"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""109bea9f-7114-400a-820d-8479bb475334"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseVelocity"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -120,6 +208,12 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         m_Flying_Grip = m_Flying.FindAction("Grip", throwIfNotFound: true);
         m_Flying_LFly = m_Flying.FindAction("LFly", throwIfNotFound: true);
         m_Flying_Pause = m_Flying.FindAction("Pause", throwIfNotFound: true);
+        // Debug
+        m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+        m_Debug_ToggleCars = m_Debug.FindAction("ToggleCars", throwIfNotFound: true);
+        m_Debug_ToggleText = m_Debug.FindAction("ToggleText", throwIfNotFound: true);
+        m_Debug_IncreaseVelocity = m_Debug.FindAction("IncreaseVelocity", throwIfNotFound: true);
+        m_Debug_DecreaseVelocity = m_Debug.FindAction("DecreaseVelocity", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -232,11 +326,75 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         }
     }
     public FlyingActions @Flying => new FlyingActions(this);
+
+    // Debug
+    private readonly InputActionMap m_Debug;
+    private IDebugActions m_DebugActionsCallbackInterface;
+    private readonly InputAction m_Debug_ToggleCars;
+    private readonly InputAction m_Debug_ToggleText;
+    private readonly InputAction m_Debug_IncreaseVelocity;
+    private readonly InputAction m_Debug_DecreaseVelocity;
+    public struct DebugActions
+    {
+        private @InputManager m_Wrapper;
+        public DebugActions(@InputManager wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleCars => m_Wrapper.m_Debug_ToggleCars;
+        public InputAction @ToggleText => m_Wrapper.m_Debug_ToggleText;
+        public InputAction @IncreaseVelocity => m_Wrapper.m_Debug_IncreaseVelocity;
+        public InputAction @DecreaseVelocity => m_Wrapper.m_Debug_DecreaseVelocity;
+        public InputActionMap Get() { return m_Wrapper.m_Debug; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+        public void SetCallbacks(IDebugActions instance)
+        {
+            if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+            {
+                @ToggleCars.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleCars;
+                @ToggleCars.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleCars;
+                @ToggleCars.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleCars;
+                @ToggleText.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleText;
+                @ToggleText.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleText;
+                @ToggleText.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleText;
+                @IncreaseVelocity.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnIncreaseVelocity;
+                @IncreaseVelocity.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnIncreaseVelocity;
+                @IncreaseVelocity.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnIncreaseVelocity;
+                @DecreaseVelocity.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDecreaseVelocity;
+                @DecreaseVelocity.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDecreaseVelocity;
+                @DecreaseVelocity.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDecreaseVelocity;
+            }
+            m_Wrapper.m_DebugActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ToggleCars.started += instance.OnToggleCars;
+                @ToggleCars.performed += instance.OnToggleCars;
+                @ToggleCars.canceled += instance.OnToggleCars;
+                @ToggleText.started += instance.OnToggleText;
+                @ToggleText.performed += instance.OnToggleText;
+                @ToggleText.canceled += instance.OnToggleText;
+                @IncreaseVelocity.started += instance.OnIncreaseVelocity;
+                @IncreaseVelocity.performed += instance.OnIncreaseVelocity;
+                @IncreaseVelocity.canceled += instance.OnIncreaseVelocity;
+                @DecreaseVelocity.started += instance.OnDecreaseVelocity;
+                @DecreaseVelocity.performed += instance.OnDecreaseVelocity;
+                @DecreaseVelocity.canceled += instance.OnDecreaseVelocity;
+            }
+        }
+    }
+    public DebugActions @Debug => new DebugActions(this);
     public interface IFlyingActions
     {
         void OnRFly(InputAction.CallbackContext context);
         void OnGrip(InputAction.CallbackContext context);
         void OnLFly(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IDebugActions
+    {
+        void OnToggleCars(InputAction.CallbackContext context);
+        void OnToggleText(InputAction.CallbackContext context);
+        void OnIncreaseVelocity(InputAction.CallbackContext context);
+        void OnDecreaseVelocity(InputAction.CallbackContext context);
     }
 }
