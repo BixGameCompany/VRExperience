@@ -112,6 +112,134 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""ODM"",
+            ""id"": ""664779bf-4cd5-4845-b550-a85d951bcbd0"",
+            ""actions"": [
+                {
+                    ""name"": ""RGrapple"",
+                    ""type"": ""Button"",
+                    ""id"": ""9197dc42-3c41-489c-99f3-f1b8f56171b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LGrapple"",
+                    ""type"": ""Button"",
+                    ""id"": ""6e5dc43f-94f1-41ab-b02c-7a29f58e0067"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2b67ad7-f3b1-47a9-ac72-e94f8dd321e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RPull"",
+                    ""type"": ""Value"",
+                    ""id"": ""21a86902-41ab-47b9-9613-65f7164653ba"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LPull"",
+                    ""type"": ""Value"",
+                    ""id"": ""e510cb4b-8711-49c6-8b9e-f62308802ed2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""TestMove"",
+                    ""type"": ""Button"",
+                    ""id"": ""7cc61ec3-4d92-4d9f-9fe5-99a327eb9db5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5ccbdcd1-22bb-4060-874a-99cd6b077406"",
+                    ""path"": ""<XRController>{RightHand}/gripPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RGrapple"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f32af1b2-21c4-4151-8d04-bdd9d13ca604"",
+                    ""path"": ""<XRController>{LeftHand}/gripButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LGrapple"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f875dbbf-662c-4f44-8d02-34e593db3587"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""554efd5b-f0a3-49cf-8c99-af7a71314a4e"",
+                    ""path"": ""<XRController>{RightHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RPull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d63d297-1698-4045-91b7-0bb6e211ffb2"",
+                    ""path"": ""<XRController>{LeftHand}/trigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LPull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91456018-9ec4-46a2-a176-a68a19195328"",
+                    ""path"": ""<XRController>{RightHand}/primaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TestMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Debug"",
             ""id"": ""1dc71342-8c52-4281-9f91-5b559d2b3437"",
             ""actions"": [
@@ -208,6 +336,14 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         m_Flying_Grip = m_Flying.FindAction("Grip", throwIfNotFound: true);
         m_Flying_LFly = m_Flying.FindAction("LFly", throwIfNotFound: true);
         m_Flying_Pause = m_Flying.FindAction("Pause", throwIfNotFound: true);
+        // ODM
+        m_ODM = asset.FindActionMap("ODM", throwIfNotFound: true);
+        m_ODM_RGrapple = m_ODM.FindAction("RGrapple", throwIfNotFound: true);
+        m_ODM_LGrapple = m_ODM.FindAction("LGrapple", throwIfNotFound: true);
+        m_ODM_Pause = m_ODM.FindAction("Pause", throwIfNotFound: true);
+        m_ODM_RPull = m_ODM.FindAction("RPull", throwIfNotFound: true);
+        m_ODM_LPull = m_ODM.FindAction("LPull", throwIfNotFound: true);
+        m_ODM_TestMove = m_ODM.FindAction("TestMove", throwIfNotFound: true);
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_ToggleCars = m_Debug.FindAction("ToggleCars", throwIfNotFound: true);
@@ -327,6 +463,79 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     }
     public FlyingActions @Flying => new FlyingActions(this);
 
+    // ODM
+    private readonly InputActionMap m_ODM;
+    private IODMActions m_ODMActionsCallbackInterface;
+    private readonly InputAction m_ODM_RGrapple;
+    private readonly InputAction m_ODM_LGrapple;
+    private readonly InputAction m_ODM_Pause;
+    private readonly InputAction m_ODM_RPull;
+    private readonly InputAction m_ODM_LPull;
+    private readonly InputAction m_ODM_TestMove;
+    public struct ODMActions
+    {
+        private @InputManager m_Wrapper;
+        public ODMActions(@InputManager wrapper) { m_Wrapper = wrapper; }
+        public InputAction @RGrapple => m_Wrapper.m_ODM_RGrapple;
+        public InputAction @LGrapple => m_Wrapper.m_ODM_LGrapple;
+        public InputAction @Pause => m_Wrapper.m_ODM_Pause;
+        public InputAction @RPull => m_Wrapper.m_ODM_RPull;
+        public InputAction @LPull => m_Wrapper.m_ODM_LPull;
+        public InputAction @TestMove => m_Wrapper.m_ODM_TestMove;
+        public InputActionMap Get() { return m_Wrapper.m_ODM; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ODMActions set) { return set.Get(); }
+        public void SetCallbacks(IODMActions instance)
+        {
+            if (m_Wrapper.m_ODMActionsCallbackInterface != null)
+            {
+                @RGrapple.started -= m_Wrapper.m_ODMActionsCallbackInterface.OnRGrapple;
+                @RGrapple.performed -= m_Wrapper.m_ODMActionsCallbackInterface.OnRGrapple;
+                @RGrapple.canceled -= m_Wrapper.m_ODMActionsCallbackInterface.OnRGrapple;
+                @LGrapple.started -= m_Wrapper.m_ODMActionsCallbackInterface.OnLGrapple;
+                @LGrapple.performed -= m_Wrapper.m_ODMActionsCallbackInterface.OnLGrapple;
+                @LGrapple.canceled -= m_Wrapper.m_ODMActionsCallbackInterface.OnLGrapple;
+                @Pause.started -= m_Wrapper.m_ODMActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_ODMActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_ODMActionsCallbackInterface.OnPause;
+                @RPull.started -= m_Wrapper.m_ODMActionsCallbackInterface.OnRPull;
+                @RPull.performed -= m_Wrapper.m_ODMActionsCallbackInterface.OnRPull;
+                @RPull.canceled -= m_Wrapper.m_ODMActionsCallbackInterface.OnRPull;
+                @LPull.started -= m_Wrapper.m_ODMActionsCallbackInterface.OnLPull;
+                @LPull.performed -= m_Wrapper.m_ODMActionsCallbackInterface.OnLPull;
+                @LPull.canceled -= m_Wrapper.m_ODMActionsCallbackInterface.OnLPull;
+                @TestMove.started -= m_Wrapper.m_ODMActionsCallbackInterface.OnTestMove;
+                @TestMove.performed -= m_Wrapper.m_ODMActionsCallbackInterface.OnTestMove;
+                @TestMove.canceled -= m_Wrapper.m_ODMActionsCallbackInterface.OnTestMove;
+            }
+            m_Wrapper.m_ODMActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @RGrapple.started += instance.OnRGrapple;
+                @RGrapple.performed += instance.OnRGrapple;
+                @RGrapple.canceled += instance.OnRGrapple;
+                @LGrapple.started += instance.OnLGrapple;
+                @LGrapple.performed += instance.OnLGrapple;
+                @LGrapple.canceled += instance.OnLGrapple;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @RPull.started += instance.OnRPull;
+                @RPull.performed += instance.OnRPull;
+                @RPull.canceled += instance.OnRPull;
+                @LPull.started += instance.OnLPull;
+                @LPull.performed += instance.OnLPull;
+                @LPull.canceled += instance.OnLPull;
+                @TestMove.started += instance.OnTestMove;
+                @TestMove.performed += instance.OnTestMove;
+                @TestMove.canceled += instance.OnTestMove;
+            }
+        }
+    }
+    public ODMActions @ODM => new ODMActions(this);
+
     // Debug
     private readonly InputActionMap m_Debug;
     private IDebugActions m_DebugActionsCallbackInterface;
@@ -389,6 +598,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         void OnGrip(InputAction.CallbackContext context);
         void OnLFly(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IODMActions
+    {
+        void OnRGrapple(InputAction.CallbackContext context);
+        void OnLGrapple(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnRPull(InputAction.CallbackContext context);
+        void OnLPull(InputAction.CallbackContext context);
+        void OnTestMove(InputAction.CallbackContext context);
     }
     public interface IDebugActions
     {
