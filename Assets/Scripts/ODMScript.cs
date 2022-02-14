@@ -70,7 +70,8 @@ public class ODMScript : MonoBehaviour
             GrappleLines[0].positionCount = 0;
         }
     }else{
-        //pullPower[0] = 0;
+        pullPower[0] = Mathf.Lerp(pullPower[0],0, 3 * Time.deltaTime);
+        GrappleLines[0].positionCount = 0;
     }
 
     if(Joints[1] != null){
@@ -91,7 +92,8 @@ public class ODMScript : MonoBehaviour
            GrappleLines[1].positionCount = 0;
         }
     }else{
-        //pullPower[1] = 0;
+        pullPower[1] = Mathf.Lerp(pullPower[1],0,3 * Time.deltaTime);
+        GrappleLines[1].positionCount = 0;
     }
     
     }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 
 public class DebugControls : MonoBehaviour
@@ -26,6 +28,8 @@ public class DebugControls : MonoBehaviour
 
         input.Debug.ToggleCars.performed += ctx => ToggleAllCars();
         input.Debug.ToggleText.performed += ctx => ToggleText();
+        input.Debug.MainMenu.performed += ctx => MainMenu();
+
 
         input.Debug.IncreaseVelocity.performed += ctx => IncreasingVel = true;
         input.Debug.IncreaseVelocity.canceled += ctx => IncreasingVel = false; 
@@ -35,6 +39,7 @@ public class DebugControls : MonoBehaviour
 
     }
     private void Update() {
+        if(Player != null){
             if(IncreasingVel && Player.maxVelcoity <= 50){
                 Player.maxVelcoity = Mathf.Lerp(Player.maxVelcoity,Player.maxVelcoity+1,5 * Time.deltaTime);
             }
@@ -42,9 +47,15 @@ public class DebugControls : MonoBehaviour
                 Player.maxVelcoity = Mathf.Lerp(Player.maxVelcoity,Player.maxVelcoity-1,5 * Time.deltaTime);
             }
             SliderText.text = $"Max Velocity: {Mathf.Round(Player.maxVelcoity)}MPH";
+        }
+            
+    }
+    void MainMenu(){
+        SceneManager.LoadScene(0);
     }
     void ToggleAllCars(){
-        if(carsEnabled){
+        if(allCars.Length > 0){
+            if(carsEnabled){
             foreach(GameObject g in allCars){
                 g.SetActive(false);
             }
@@ -56,6 +67,8 @@ public class DebugControls : MonoBehaviour
             carsEnabled = true;
 
         }
+        }
+        
     }
     void ToggleText()
     {

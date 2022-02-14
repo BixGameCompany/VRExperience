@@ -278,6 +278,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MainMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""119abdfa-c6b4-465e-866f-c3de058b3dfa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -324,6 +333,17 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""action"": ""DecreaseVelocity"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c4bbdd8-e45d-4735-a8d1-ff69f34e8fc3"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MainMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -350,6 +370,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         m_Debug_ToggleText = m_Debug.FindAction("ToggleText", throwIfNotFound: true);
         m_Debug_IncreaseVelocity = m_Debug.FindAction("IncreaseVelocity", throwIfNotFound: true);
         m_Debug_DecreaseVelocity = m_Debug.FindAction("DecreaseVelocity", throwIfNotFound: true);
+        m_Debug_MainMenu = m_Debug.FindAction("MainMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -543,6 +564,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     private readonly InputAction m_Debug_ToggleText;
     private readonly InputAction m_Debug_IncreaseVelocity;
     private readonly InputAction m_Debug_DecreaseVelocity;
+    private readonly InputAction m_Debug_MainMenu;
     public struct DebugActions
     {
         private @InputManager m_Wrapper;
@@ -551,6 +573,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         public InputAction @ToggleText => m_Wrapper.m_Debug_ToggleText;
         public InputAction @IncreaseVelocity => m_Wrapper.m_Debug_IncreaseVelocity;
         public InputAction @DecreaseVelocity => m_Wrapper.m_Debug_DecreaseVelocity;
+        public InputAction @MainMenu => m_Wrapper.m_Debug_MainMenu;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -572,6 +595,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @DecreaseVelocity.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnDecreaseVelocity;
                 @DecreaseVelocity.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnDecreaseVelocity;
                 @DecreaseVelocity.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnDecreaseVelocity;
+                @MainMenu.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnMainMenu;
+                @MainMenu.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnMainMenu;
+                @MainMenu.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnMainMenu;
             }
             m_Wrapper.m_DebugActionsCallbackInterface = instance;
             if (instance != null)
@@ -588,6 +614,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @DecreaseVelocity.started += instance.OnDecreaseVelocity;
                 @DecreaseVelocity.performed += instance.OnDecreaseVelocity;
                 @DecreaseVelocity.canceled += instance.OnDecreaseVelocity;
+                @MainMenu.started += instance.OnMainMenu;
+                @MainMenu.performed += instance.OnMainMenu;
+                @MainMenu.canceled += instance.OnMainMenu;
             }
         }
     }
@@ -614,5 +643,6 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         void OnToggleText(InputAction.CallbackContext context);
         void OnIncreaseVelocity(InputAction.CallbackContext context);
         void OnDecreaseVelocity(InputAction.CallbackContext context);
+        void OnMainMenu(InputAction.CallbackContext context);
     }
 }
